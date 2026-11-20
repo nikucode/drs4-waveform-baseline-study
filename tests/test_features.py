@@ -112,6 +112,16 @@ class TestWaveformFeatures(unittest.TestCase):
 
         self.assertFalse(features.detected)
 
+    def test_rise_time_ignores_an_earlier_noise_crossing(self):
+        features = extract_features(
+            list(range(8)),
+            [0.0, 0.0, 0.0, 0.2, 0.0, 0.1, 1.0, 0.0],
+            method="mean",
+            baseline_samples=2,
+        )
+
+        self.assertAlmostEqual(features.rise_time_10_90, 8 / 9)
+
     def test_invalid_time_axis_is_rejected(self):
         with self.assertRaises(ValueError):
             extract_features(

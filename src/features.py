@@ -32,9 +32,12 @@ def _crossing_time(
     *,
     rising: bool,
 ) -> float | None:
-    """Interpola el primer cruce del nivel entre muestras adyacentes."""
+    """Interpola un cruce, priorizando el flanco próximo al máximo."""
 
-    for index in range(1, len(values)):
+    indices = (
+        range(len(values) - 1, 0, -1) if rising else range(1, len(values))
+    )
+    for index in indices:
         left, right = values[index - 1], values[index]
         crossed = left <= level <= right if rising else left >= level >= right
         if not crossed or left == right:

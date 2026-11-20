@@ -127,6 +127,22 @@ amplitud 3 mV y techo 949,9 mV). Estos parámetros son modificables y no se
 presentan como una calibración independiente. Las tablas experimentales se
 mantienen bajo `results/` hasta contar con autorización para publicar derivados.
 
+## Validación local contra la reducción anterior
+
+Los resultados del método de media pueden contrastarse fila por fila con una
+tabla colaborativa de referencia sin copiarla al repositorio:
+
+```bash
+python -m analysis.validate_local_reference \
+  --own results/local_drs4_baseline_01/event_method_results.csv \
+  --reference /ruta/privada/metricas_por_evento.csv
+```
+
+El validador separa campos matemáticamente equivalentes, la diferencia conocida
+entre RMS poblacional y desviación muestral, y parámetros cuyas definiciones
+son deliberadamente distintas (actualmente FWHM interpolado frente a anchura
+discreta). El informe resultante permanece bajo `results/`.
+
 ## Relación con MiniNeutron
 
 Este estudio es independiente de MiniNeutron. Ambos comparten preguntas
