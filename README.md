@@ -34,10 +34,12 @@ atribución confirmados.
 ## Estado
 
 La primera etapa implementa media, mediana y media recortada simétrica para
-una región previa al pulso. Incluye un generador reproducible de regiones
-sintéticas con línea base conocida, ruido, deriva y valores extremos, además
-de pruebas unitarias. La extracción de características y el análisis de los
-registros experimentales todavía están pendientes.
+una región previa al pulso. Incluye generadores reproducibles de regiones de
+baseline y pulsos triangulares sintéticos con verdad conocida. El extractor
+inicial calcula amplitud, ruido RMS, SNR, áreas, tiempo al máximo, tiempo de
+subida, FWHM, saturación y detección para los tres métodos de forma pareada.
+El barrido sintético y el análisis de registros experimentales todavía están
+pendientes.
 
 - [Especificación](docs/especificacion.md)
 - [Procedencia y publicación](docs/procedencia.md)
