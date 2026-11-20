@@ -92,6 +92,23 @@ Los productos sintéticos seleccionados se publican en
 [`artifacts/baseline_sensitivity_01`](artifacts/baseline_sensitivity_01/).
 El informe conserva las limitaciones del modelo y no utiliza registros DRS4.
 
+## Adaptador local DRS4
+
+`src/drs4_xml.py` implementa un lector incremental propio que conserva evento,
+placa, canal, unidades, celda de trigger y pares tiempo–voltaje. Se prueba con
+un XML completamente sintético; los registros recibidos no se incluyen en el
+repositorio.
+
+Para generar únicamente un inventario estructural local:
+
+```bash
+python -m analysis.inspect_local_drs4 \
+  /ruta/privada/muestra_cosmicos_10_eventos.xml \
+  /ruta/privada/muestra_led_10_eventos.xml
+```
+
+La salida queda bajo `results/`, directorio ignorado por Git.
+
 ## Relación con MiniNeutron
 
 Este estudio es independiente de MiniNeutron. Ambos comparten preguntas
