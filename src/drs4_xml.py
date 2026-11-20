@@ -44,7 +44,9 @@ def _required_text(parent: ET.Element, name: str, context: str) -> str:
     raise DRS4FormatError(f"falta {name} en {context}")
 
 
-def _parse_data(channel: ET.Element, context: str) -> tuple[tuple[float, ...], tuple[float, ...]]:
+def _parse_data(
+    channel: ET.Element, context: str
+) -> tuple[tuple[float, ...], tuple[float, ...]]:
     times: list[float] = []
     voltages: list[float] = []
     for sample in channel:
@@ -56,7 +58,9 @@ def _parse_data(channel: ET.Element, context: str) -> tuple[tuple[float, ...], t
             time = float(time_text)
             voltage = float(voltage_text)
         except (ValueError, TypeError) as error:
-            raise DRS4FormatError(f"muestra inválida en {context}: {text!r}") from error
+            raise DRS4FormatError(
+                f"muestra inválida en {context}: {text!r}"
+            ) from error
         if not math.isfinite(time) or not math.isfinite(voltage):
             raise DRS4FormatError(f"muestra no finita en {context}")
         times.append(time)

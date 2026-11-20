@@ -109,6 +109,24 @@ python -m analysis.inspect_local_drs4 \
 
 La salida queda bajo `results/`, directorio ignorado por Git.
 
+## Comparación local pareada
+
+El adaptador puede conectarse con el extractor propio para medir cuánto cambian
+las características de cada registro al modificar solamente el estimador de
+baseline:
+
+```bash
+python -m analysis.study_local_drs4_baseline \
+  /ruta/privada/muestra_cosmicos_10_eventos.xml \
+  /ruta/privada/muestra_led_10_eventos.xml
+```
+
+La configuración predeterminada reproduce valores de compatibilidad de una
+reducción colaborativa anterior (50 muestras, ventana 50–160 ns, SNR 5,
+amplitud 3 mV y techo 949,9 mV). Estos parámetros son modificables y no se
+presentan como una calibración independiente. Las tablas experimentales se
+mantienen bajo `results/` hasta contar con autorización para publicar derivados.
+
 ## Relación con MiniNeutron
 
 Este estudio es independiente de MiniNeutron. Ambos comparten preguntas

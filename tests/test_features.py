@@ -64,7 +64,6 @@ class TestWaveformFeatures(unittest.TestCase):
             baseline=0.0,
             amplitude=1.0,
         )
-
         features = extract_features(
             times,
             voltages,
@@ -74,6 +73,44 @@ class TestWaveformFeatures(unittest.TestCase):
         )
 
         self.assertEqual(features.saturated_samples, 1)
+
+    def test_explicit_signal_window_changes_integrated_region(self):
+        times, voltages = triangular_pulse_waveform(
+            baseline=0.0,
+            amplitude=1.0,
+        )
+        voltages = [
+            value + (1.0 if time >= 100.0 else 0.0)
+            for time, value in zip(times, voltages)
+        ]
+
+        full = extract_features(times, voltages, method="mean")
+        windowed = extract_features(
+            times,
+            voltages,
+            method="mean",
+            signal_time_min=60.0,
+            signal_time_max=90.0,
+        )
+
+        self.assertGreater(full.signed_area, windowed.signed_area)
+        self.assertAlmostEqual(windowed.signed_area, 15.0)
+        self.assertEqual(windowed.amplitude, 1.0)
+
+    def test_detection_can_require_minimum_amplitude(self):
+        times, voltages = triangular_pulse_waveform(
+            baseline=0.0,
+            amplitude=0.5,
+        )
+
+        features = extract_features(
+            times,
+            voltages,
+            method="mean",
+            detection_amplitude=1.0,
+        )
+
+        self.assertFalse(features.detected)
 
     def test_invalid_time_axis_is_rejected(self):
         with self.assertRaises(ValueError):

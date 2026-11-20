@@ -61,6 +61,9 @@ def extract_features(
     baseline_samples: int = 50,
     trim_fraction: float = 0.10,
     detection_snr: float = 5.0,
+    detection_amplitude: float = 0.0,
+    signal_time_min: float | None = None,
+    signal_time_max: float | None = None,
     adc_min: float | None = None,
     adc_max: float | None = None,
 ) -> WaveformFeatures:
@@ -81,6 +84,14 @@ def extract_features(
         raise ValueError("el eje temporal debe ser estrictamente creciente")
     if detection_snr < 0:
         raise ValueError("detection_snr no puede ser negativo")
+    if detection_amplitude < 0:
+        raise ValueError("detection_amplitude no puede ser negativa")
+    if (
+        signal_time_min is not None
+        and signal_time_max is not None
+        and signal_time_min >= signal_time_max
+    ):
+        raise ValueError("signal_time_min debe ser menor que signal_time_max")
     if adc_min is not None and adc_max is not None and adc_min >= adc_max:
         raise ValueError("adc_min debe ser menor que adc_max")
 
@@ -96,8 +107,18 @@ def extract_features(
         / len(baseline_region)
     )
 
-    signal_times = times[baseline_samples:]
-    corrected = [value - baseline for value in voltages[baseline_samples:]]
+    signal = [
+        (time, voltage - baseline)
+        for time, voltage in zip(
+            times[baseline_samples:], voltages[baseline_samples:]
+        )
+        if (signal_time_min is None or time >= signal_time_min)
+        and (signal_time_max is None or time <= signal_time_max)
+    ]
+    if len(signal) < 2:
+        raise ValueError("la ventana de señal debe contener al menos 2 muestras")
+    signal_times = [time for time, _ in signal]
+    corrected = [value for _, value in signal]
     peak_index = max(range(len(corrected)), key=corrected.__getitem__)
     amplitude = corrected[peak_index]
     peak_time = signal_times[peak_index]
@@ -136,7 +157,11 @@ def extract_features(
         or (adc_max is not None and value >= adc_max)
         for value in voltages
     )
-    detected = amplitude > 0 and (noise_rms == 0 or snr >= detection_snr)
+    detected = (
+        amplitude >= detection_amplitude
+        and amplitude > 0
+        and (noise_rms == 0 or snr >= detection_snr)
+    )
 
     return WaveformFeatures(
         baseline=baseline,
