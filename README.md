@@ -79,6 +79,19 @@ separadas las condiciones de amplitud, ruido, deriva y valores extremos. El
 manifiesto registra la configuración, los desplazamientos utilizados como
 valores extremos y hashes SHA-256 del código que generó los resultados.
 
+## Generar el informe y las figuras
+
+Después del barrido:
+
+```bash
+python -m pip install -r requirements.txt
+python -m analysis.report_synthetic_results
+```
+
+Los productos sintéticos seleccionados se publican en
+[`artifacts/baseline_sensitivity_01`](artifacts/baseline_sensitivity_01/).
+El informe conserva las limitaciones del modelo y no utiliza registros DRS4.
+
 ## Relación con MiniNeutron
 
 Este estudio es independiente de MiniNeutron. Ambos comparten preguntas

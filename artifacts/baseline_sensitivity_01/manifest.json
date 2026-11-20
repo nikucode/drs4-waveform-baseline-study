@@ -1,0 +1,52 @@
+{
+  "config": {
+    "amplitudes": [
+      0.1,
+      0.5,
+      1.0
+    ],
+    "baseline": 0.5,
+    "drift_per_samples": [
+      0.0,
+      0.0005
+    ],
+    "noise_sigmas": [
+      0.0,
+      0.005,
+      0.02
+    ],
+    "outlier_scenarios": [
+      "none",
+      "positive_spike",
+      "mixed_spikes"
+    ],
+    "peak_index": 70,
+    "pulse_end": 90,
+    "pulse_start": 60,
+    "sample_period": 1.0,
+    "seed_start": 20261120,
+    "trials": 20
+  },
+  "design": "paired: each event is processed by all three methods",
+  "files": {
+    "analysis/study_baseline_sensitivity.py": "3b86662f23a9cd2ae6e287cbcfc06ea1ad9c5060788b21935f7b0e62710643b7",
+    "src/baseline.py": "61e83043c341624b4ec7340ed06419d0fc14fd52e0ad241a00ee64a79d839e01",
+    "src/features.py": "2b3548643bb5a95ce491a20cc134285b0ff1f9d02774ab3c5ba5f7d16a84bdf3",
+    "src/synthetic.py": "f8d37e3eba15f1c184a29652e0ce91a4a3120aadb979e3bc0e7d4f1eddb419af"
+  },
+  "outlier_offsets": {
+    "mixed_spikes": {
+      "0": 0.5,
+      "1": -0.35
+    },
+    "none": {},
+    "positive_spike": {
+      "0": 0.5
+    }
+  },
+  "outputs": {
+    "event_rows": 3240,
+    "summary_rows": 162
+  },
+  "study": "synthetic_baseline_sensitivity"
+}
