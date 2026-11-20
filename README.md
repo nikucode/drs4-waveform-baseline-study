@@ -1,5 +1,7 @@
 # DRS4 Waveform Baseline Study
 
+[![Tests](https://github.com/nikucode/drs4-waveform-baseline-study/actions/workflows/tests.yml/badge.svg)](https://github.com/nikucode/drs4-waveform-baseline-study/actions/workflows/tests.yml)
+
 Estudio educativo y reproducible sobre la sensibilidad de características de
 formas de onda frente al método de estimación de línea base.
 
@@ -31,26 +33,33 @@ Este repositorio contendrá solamente:
 No contendrá datos experimentales ni código de terceros sin permiso y
 atribución confirmados.
 
-## Estado
+## Estado y resultados verificables
 
-La primera etapa implementa media, mediana y media recortada simétrica para
-una región previa al pulso. Incluye generadores reproducibles de regiones de
-baseline y pulsos triangulares sintéticos con verdad conocida. El extractor
-inicial calcula amplitud, ruido RMS, SNR, áreas, tiempo al máximo, tiempo de
-subida, FWHM, saturación y detección para los tres métodos de forma pareada.
-El primer barrido sintético estudia amplitud, ruido, deriva y valores extremos.
-El análisis de registros experimentales todavía está pendiente.
+- Implementación propia de media, mediana y media recortada simétrica.
+- Extracción pareada de amplitud, ruido RMS, SNR, áreas, tiempo al máximo,
+  subida 10–90 %, FWHM, saturación y detección.
+- Barrido público de 1.080 formas de onda sintéticas: 3.240 resultados
+  evento–método y 162 resúmenes por condición.
+- Informe, tabla agregada, manifiesto y dos figuras regenerables.
+- Adaptador XML DRS4 incremental propio, validado con fixtures sintéticos.
+- Pipeline local de sensibilidad aplicado a muestras recibidas de hodoscopio/
+  PMT y LED; los datos y derivados experimentales no se publican.
+- Validador local fila por fila contra la reducción colaborativa anterior,
+  manteniendo separadas equivalencias y diferencias metodológicas.
+- 29 pruebas automatizadas; GitHub Actions las ejecuta en Python 3.11 y 3.12.
 
 - [Especificación](docs/especificacion.md)
 - [Procedencia y publicación](docs/procedencia.md)
 
-## Estructura prevista
+## Estructura
 
 ```text
-src/        implementación propia
-tests/      señales sintéticas y pruebas automatizadas
-docs/       método, procedencia, resultados y limitaciones
-results/    productos regenerables ignorados por Git
+src/        estimadores, extractor de características y adaptador XML propio
+analysis/   barridos, inventarios, informes y validación local
+tests/      fixtures sintéticos y pruebas automatizadas
+docs/       especificación, procedencia y límites de publicación
+artifacts/  informe y resultados exclusivamente sintéticos publicables
+results/    productos regenerables y análisis locales ignorados por Git
 ```
 
 ## Ejecutar las pruebas
