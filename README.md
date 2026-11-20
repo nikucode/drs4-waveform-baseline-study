@@ -50,6 +50,7 @@ atribución confirmados.
 
 - [Especificación](docs/especificacion.md)
 - [Procedencia y publicación](docs/procedencia.md)
+- [Estudio de longitud de ventana](docs/estudio_longitud_ventana.md)
 
 ## Estructura
 
@@ -87,6 +88,20 @@ fila por evento y método en `event_results.csv`. `summary.csv` mantiene
 separadas las condiciones de amplitud, ruido, deriva y valores extremos. El
 manifiesto registra la configuración, los desplazamientos utilizados como
 valores extremos y hashes SHA-256 del código que generó los resultados.
+
+## Estudiar la longitud de la ventana
+
+La segunda extensión sintética compara 20, 50 y 100 muestras de baseline sobre
+las mismas formas de onda y mantiene fija la ventana de señal:
+
+```bash
+python -m analysis.study_baseline_window \
+  --output-dir results/baseline_window_01 \
+  --trials 100
+```
+
+La pregunta, hipótesis y límites se registraron antes del barrido en
+[`docs/estudio_longitud_ventana.md`](docs/estudio_longitud_ventana.md).
 
 ## Generar el informe y las figuras
 
