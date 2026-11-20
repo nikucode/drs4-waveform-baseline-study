@@ -103,6 +103,17 @@ python -m analysis.study_baseline_window \
 La pregunta, hipótesis y límites se registraron antes del barrido en
 [`docs/estudio_longitud_ventana.md`](docs/estudio_longitud_ventana.md).
 
+Para publicar únicamente el resumen y las figuras sintéticas:
+
+```bash
+python -m analysis.report_baseline_window
+```
+
+El resultado se conserva en
+[`artifacts/baseline_window_01`](artifacts/baseline_window_01/) y compara los
+valores simulados con las dependencias analíticas de la media `σ/sqrt(N)` y
+`0,50/N`.
+
 ## Generar el informe y las figuras
 
 Después del barrido:

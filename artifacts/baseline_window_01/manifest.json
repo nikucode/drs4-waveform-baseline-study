@@ -1,0 +1,54 @@
+{
+  "config": {
+    "amplitudes": [
+      0.1,
+      1.0
+    ],
+    "baseline": 0.5,
+    "baseline_windows": [
+      20,
+      50,
+      100
+    ],
+    "noise_sigmas": [
+      0.005,
+      0.02
+    ],
+    "outlier_scenarios": [
+      "none",
+      "positive_spike",
+      "mixed_spikes"
+    ],
+    "peak_index": 130,
+    "pulse_end": 150,
+    "pulse_start": 120,
+    "seed_start": 20261121,
+    "signal_time_max": 160.0,
+    "signal_time_min": 110.0,
+    "total_samples": 180,
+    "trials": 100
+  },
+  "design": "paired: each waveform is reused across all windows and methods; signal integration window remains fixed",
+  "files": {
+    "analysis/study_baseline_window.py": "bbea546f4333f04f4865f579b94bd44555c26a14ddb9be14751f622085ffd6bf",
+    "docs/estudio_longitud_ventana.md": "dba9af48de5eb99cb78e610471f244d4cfa9c05d97ed5760da96dd83aebc8791",
+    "src/baseline.py": "61e83043c341624b4ec7340ed06419d0fc14fd52e0ad241a00ee64a79d839e01",
+    "src/features.py": "5c52646b55c45279fb0465bf02e01ce546ae8ec94f6f1b4fd5a79d5fd0e52133",
+    "src/synthetic.py": "f8d37e3eba15f1c184a29652e0ce91a4a3120aadb979e3bc0e7d4f1eddb419af"
+  },
+  "outlier_offsets": {
+    "mixed_spikes": {
+      "0": 0.5,
+      "1": -0.35
+    },
+    "none": {},
+    "positive_spike": {
+      "0": 0.5
+    }
+  },
+  "outputs": {
+    "event_rows": 10800,
+    "summary_rows": 108
+  },
+  "study": "synthetic_baseline_window_length"
+}
