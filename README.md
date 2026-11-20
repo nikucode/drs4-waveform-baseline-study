@@ -33,8 +33,11 @@ atribución confirmados.
 
 ## Estado
 
-Actualmente se encuentra definida la especificación del estudio. La
-implementación y los resultados todavía están pendientes.
+La primera etapa implementa media, mediana y media recortada simétrica para
+una región previa al pulso. Incluye un generador reproducible de regiones
+sintéticas con línea base conocida, ruido, deriva y valores extremos, además
+de pruebas unitarias. La extracción de características y el análisis de los
+registros experimentales todavía están pendientes.
 
 - [Especificación](docs/especificacion.md)
 - [Procedencia y publicación](docs/procedencia.md)
@@ -47,6 +50,18 @@ tests/      señales sintéticas y pruebas automatizadas
 docs/       método, procedencia, resultados y limitaciones
 results/    productos regenerables ignorados por Git
 ```
+
+## Ejecutar las pruebas
+
+Desde la raíz del repositorio:
+
+```bash
+python -m unittest discover -v
+```
+
+La media recortada usa por defecto una fracción de 0,10 y elimina
+`floor(N * 0,10)` muestras de cada extremo. Con la región prevista de 50
+muestras, se eliminan cinco valores inferiores y cinco superiores.
 
 ## Relación con MiniNeutron
 
