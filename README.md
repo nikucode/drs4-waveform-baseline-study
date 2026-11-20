@@ -127,6 +127,26 @@ Los productos sintéticos seleccionados se publican en
 [`artifacts/baseline_sensitivity_01`](artifacts/baseline_sensitivity_01/).
 El informe conserva las limitaciones del modelo y no utiliza registros DRS4.
 
+## Prototipo FPGA de línea base
+
+El prototipo independiente de fabricante calcula la media entera de bloques de
+50 muestras U12. Su contrato, RTL, referencia Python y verificación cruzada se
+encuentran en la [arquitectura](docs/fpga/architecture.md), la
+[guía de aprendizaje](docs/fpga/guia_aprendizaje.md), la
+[bitácora verificable](docs/fpga/bitacora.md), [`fpga/`](fpga/) y
+[`src/fixed_point.py`](src/fixed_point.py). Para ejecutar la verificación:
+
+```bash
+python -m fpga.verify
+```
+
+La ejecución documentada comprobó 79/79 bloques Python–RTL sin discrepancias y
+una síntesis genérica con Yosys sin problemas estructurales. Esto no constituye
+implementación ni validación en una FPGA física. La integración usa solamente
+vectores manuales, pseudoaleatorios y señales sintéticas cuantizadas
+explícitamente; la procedencia de los registros experimentales permanece
+separada y no se incorporan al flujo FPGA.
+
 ## Adaptador local DRS4
 
 `src/drs4_xml.py` implementa un lector incremental propio que conserva evento,
