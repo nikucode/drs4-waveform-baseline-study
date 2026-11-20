@@ -38,8 +38,8 @@ una región previa al pulso. Incluye generadores reproducibles de regiones de
 baseline y pulsos triangulares sintéticos con verdad conocida. El extractor
 inicial calcula amplitud, ruido RMS, SNR, áreas, tiempo al máximo, tiempo de
 subida, FWHM, saturación y detección para los tres métodos de forma pareada.
-El barrido sintético y el análisis de registros experimentales todavía están
-pendientes.
+El primer barrido sintético estudia amplitud, ruido, deriva y valores extremos.
+El análisis de registros experimentales todavía está pendiente.
 
 - [Especificación](docs/especificacion.md)
 - [Procedencia y publicación](docs/procedencia.md)
@@ -64,6 +64,20 @@ python -m unittest discover -v
 La media recortada usa por defecto una fracción de 0,10 y elimina
 `floor(N * 0,10)` muestras de cada extremo. Con la región prevista de 50
 muestras, se eliminan cinco valores inferiores y cinco superiores.
+
+## Ejecutar el primer barrido sintético
+
+```bash
+python -m analysis.study_baseline_sensitivity \
+  --output-dir results/baseline_sensitivity_01 \
+  --trials 20
+```
+
+La corrida compara los métodos sobre las mismas formas de onda y conserva una
+fila por evento y método en `event_results.csv`. `summary.csv` mantiene
+separadas las condiciones de amplitud, ruido, deriva y valores extremos. El
+manifiesto registra la configuración, los desplazamientos utilizados como
+valores extremos y hashes SHA-256 del código que generó los resultados.
 
 ## Relación con MiniNeutron
 

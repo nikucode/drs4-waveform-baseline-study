@@ -16,6 +16,7 @@ def triangular_pulse_waveform(
     pulse_end: int = 90,
     sample_period: float = 1.0,
     noise_sigma: float = 0.0,
+    drift_per_sample: float = 0.0,
     baseline_outliers: dict[int, float] | None = None,
     seed: int = 0,
 ) -> tuple[list[float], list[float]]:
@@ -38,6 +39,7 @@ def triangular_pulse_waveform(
         raise ValueError("pulse_end debe estar dentro de la forma de onda")
 
     rng = random.Random(seed)
+    baseline_center = (baseline_samples - 1) / 2
     times = [index * sample_period for index in range(total_samples)]
     voltages: list[float] = []
     for index in range(total_samples):
@@ -47,7 +49,10 @@ def triangular_pulse_waveform(
             pulse = amplitude * (pulse_end - index) / (pulse_end - peak_index)
         else:
             pulse = 0.0
-        voltages.append(baseline + pulse + rng.gauss(0.0, noise_sigma))
+        drift = drift_per_sample * (index - baseline_center)
+        voltages.append(
+            baseline + drift + pulse + rng.gauss(0.0, noise_sigma)
+        )
 
     for index, offset in (baseline_outliers or {}).items():
         if not 0 <= index < baseline_samples:
